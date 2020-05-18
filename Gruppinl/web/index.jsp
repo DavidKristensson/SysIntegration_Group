@@ -9,7 +9,6 @@
 <html>
   <head>
     <title></title>
-    <script src="websocket.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
@@ -19,24 +18,32 @@
     <br />
 
     <div id="currentMeasures">
-        <h2>Current:
+        <h2>Current:</h2>
         <br/>
-            <br/>
-        Temp: 23,4
-        <br/>
-        Humidity: 30
-        <br/>
-        Luminosity: 69%</h2>
+            <script type="text/javascript">
+                var websocket = new WebSocket('ws://localhost:8080')
+                websocket.onmessage = function(event) {
+                    var msg = JSON.parse(event.data);
+                    var time = new Date(msg.date);
+                    var timeStr = time.toLocaleTimeString();
+                    var textarea = document.createElement("TEXTAREA");
+                    var t = document.getElementById("currentMeasures").innerHTML = msg;
+                    textarea.appendChild(t);
+                    document.body.appendChild(textarea);
+                }
+            </script>
     </div>
       <div id="showHistory">
-
-      <form id="showHistoryTables">
-          <input type="date" id="myDate" value="2014-02-09">
-          <div class="button" OnClick="recievingDate()">Show historic meassures</a> </div>
+          <form action="/action_page.php">
+              <label for="selectedDate">Date: </label>
+              <input type="date" id="selectedDate" name="selectedDate">
+              <input type="submit">
+          </form></div>
           <br />
           <p id="demo"></p>
           <br />
           <br />
+
       </form>
   </div>
   </div>

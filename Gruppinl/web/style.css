@@ -33,17 +33,10 @@ p {
 }
 
 #showHistory {
-    text-align: left;
-    width: 960px;
+    text-align: center;
+    width: auto;
     margin: auto;
     margin-bottom: 10px;
-}
-
-#showHistoryTables {
-    text-align: left;
-    width: 400px;
-    margin: auto;
-    padding: 10px;
 }
 
 #content {
