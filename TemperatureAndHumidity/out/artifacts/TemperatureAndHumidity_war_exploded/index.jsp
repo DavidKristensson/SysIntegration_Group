@@ -17,14 +17,6 @@
 </br>
 <h2>Nuvarande temperatur och luftfuktighet:</h2>
 <div class="box"></div></div>
-<script>
-  var connection=new WebSocket("http://localhost:8080/TemperatureAndHumidity_war_exploded/",'json');
-connection.onopen = function () {
-  connection.send('Hello, Server!!');
-}
-connection.onmessage = function (event) {
-  $('#box').append(evt.data);
-}</script>
 </br>
 <div class="wrapper">
 <button class="button" name="button">Visa historik</button>
@@ -33,16 +25,37 @@ connection.onmessage = function (event) {
 <div class="div" id="div1"></div>
 
 <script>
-  $(document).ready(function(){
+  $(document).ready(function() {
     $("button").click(function(){
-      $.ajax({
-        type : 'POST',
-        url: "http://ip.jsontest.com/?callback=showMyIP",
-        success: function(result){
-          $("#div1").html(result);
-        }});
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/getDataFromDatabase",
+      dataType: "xml",
+      success: function(xml) {
+        var items = parseXml(xml);
+        var i;
+        for (i = 0; i < items.length; i++)
+        {
+        doStuff(items[i]);}
+      }
     });
   });
+
+  function parseXml(xml) {
+    var items = [];
+    $(xml).find("item").each(function() {
+      items.push({
+        temperature: $(this).find("temperature").text(),
+        humidity: $(this).find("humidity").text(),
+        id: $(this).find("id").text()
+      });
+    });
+    return items;
+  }
+
+  function doStuff(items) {
+    $("#div1").append('id:' + items.id + '</br>');
+  }});
 </script>
 </body>
 </html>

@@ -11,10 +11,10 @@ public class DbManager {
     ArrayList<Reading> listOfReadings = new ArrayList<>();
     String lassesFilePath = "C:\\Users\\lasse\\GitProjects\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
     String davidsFilePath = "C:\\Users\\User123\\GitProjects\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
-
+    String linnsFilePath = "C:\\Users\\linnm\\Documents\\Git\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
     public ArrayList<Reading> getReadingsFromDb() throws IOException, ClassNotFoundException{
         Properties p = new Properties();
-        p.load(new FileInputStream(lassesFilePath));
+        p.load(new FileInputStream(linnsFilePath));
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -55,7 +55,7 @@ public class DbManager {
 
     public void insertDataBase(Reading readingFromArduino) throws IOException, ClassNotFoundException {
         Properties p = new Properties();
-        p.load(new FileInputStream(lassesFilePath));
+        p.load(new FileInputStream(linnsFilePath));
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         ResultSet rs = null;
