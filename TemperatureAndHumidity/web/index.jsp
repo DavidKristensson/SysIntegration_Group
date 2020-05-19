@@ -16,22 +16,18 @@
 <div class="info"><h1>Projekt av David, Lasse och Linn</h1>
 </br>
 <h2>Nuvarande temperatur och luftfuktighet:</h2></div>
-<button class="button" name="button2">Visa nuvarande</button>
 <div class="currentvalueBOX"></div>
 
 <script>
   $(document).ready(function() {
-    $("button2").click(function(){
     $.ajax({
       type: "GET",
       url: "http://localhost:8090/current",
       dataType: JSON,
       success: function (result) {
-        var pj = JSON.parse(result)
+        var pj = JSON.parse(result);
         $("#currentvalueBOX").append('temperature' + pj.temperature + pj.humidity)
-        alert(result)
       }
-    });
     });
   });
 </script>
