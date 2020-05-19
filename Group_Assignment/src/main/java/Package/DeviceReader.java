@@ -1,5 +1,5 @@
 package Package;
-
+import Package.Reading;
 import com.fazecast.jSerialComm.SerialPort;
 
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class DeviceReader {
 
     public DeviceReader() { }
+
 
     public void readDataFromArduino() throws IOException, ClassNotFoundException {
         SerialPort ports[] = SerialPort.getCommPorts();
@@ -41,14 +42,17 @@ public class DeviceReader {
             if (data.next().contains("Humidity:")) {
                 String humidity = data.nextLine();
                 arduinoReading.setHumidity(Double.parseDouble(humidity));
+                dbManager.staticHumidity = (Double.parseDouble(humidity));
                 System.out.println("humidity: "+humidity);
             }
             if (data.next().contains("Temperature:")) {
                 String temperature = data.nextLine();
                 arduinoReading.setTemperature(Double.parseDouble(temperature));
+                dbManager.staticTemperature = (Double.parseDouble(temperature));
                 System.out.println("temperature: "+temperature);
             }
             dbManager.insertDataBase(arduinoReading);
+            dbManager.LatestValue = arduinoReading;
         }
         //System.out.println("Arduinoreading hum: "+arduinoReading.getHumidity()+"\nArd reading temp: "+arduinoReading.getTemperature());
     }

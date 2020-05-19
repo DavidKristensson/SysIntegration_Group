@@ -10,6 +10,11 @@ public class Reading {
 
     Reading(){ }
 
+    public Reading(double temperature, double humidity){
+        this.temperature = temperature;
+        this.humidity = humidity;
+    }
+
     public double getTemperature() {
         return temperature;
     }

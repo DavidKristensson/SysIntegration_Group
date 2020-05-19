@@ -13,14 +13,15 @@ h1 {
 h2{
     font-family: "Arial Rounded MT Bold";
     text-align: center;
-    text-transform: uppercase;
+    text-transform: lowercase;
     color: white;
     font-size: 20px;
+    font-weight: bold;
 }
 .info {
     text-align: center;
 }
-.box {
+.currentvalueBOX {
     width: 180px;
     height: 200px;
     margin: 10px;
@@ -64,7 +65,7 @@ h2{
     top:1px;
 }
 .div {
-    width: 600px;
+    width: 200px;
     height: auto;
     margin: 10px;
     padding: 16px;

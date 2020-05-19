@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class DbManager {
-
+    public static Reading LatestValue = new Reading();
+    public static double staticHumidity;
+    public static double staticTemperature;
     ArrayList<Reading> listOfReadings = new ArrayList<>();
+
     String lassesFilePath = "C:\\Users\\lasse\\GitProjects\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
     String davidsFilePath = "C:\\Users\\User123\\GitProjects\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
     String linnsFilePath = "C:\\Users\\linnm\\Documents\\Git\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
@@ -80,4 +83,5 @@ public class DbManager {
             e.printStackTrace();
         }
     }
+
 }

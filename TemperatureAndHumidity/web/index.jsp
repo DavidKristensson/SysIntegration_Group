@@ -15,17 +15,26 @@
 <body>
 <div class="info"><h1>Projekt av David, Lasse och Linn</h1>
 </br>
-<h2>Nuvarande temperatur och luftfuktighet:</h2>
+<h2>Nuvarande temperatur och luftfuktighet:</h2></div>
+<button class="button" name="button2">Visa nuvarande</button>
 <div class="currentvalueBOX"></div>
-</div>
+
 <script>
-  var connection=new WebSocket("http://localhost:8080/websocket",'json');
-  connection.onopen = function () {
-    connection.send('Hello, Server!!');
-  }
-  connection.onmessage = function (event) {
-    $('#currentvalueBOX').append(evt.data);
-  }</script>
+  $(document).ready(function() {
+    $("button2").click(function(){
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8090/current",
+      dataType: JSON,
+      success: function (result) {
+        var pj = JSON.parse(result)
+        $("#currentvalueBOX").append('temperature' + pj.temperature + pj.humidity)
+        alert(result)
+      }
+    });
+    });
+  });
+</script>
 </br>
 <div class="wrapper">
 <button class="button" name="button">Visa historik</button>
@@ -33,12 +42,13 @@
 </br>
 <div class="div" id="div1"></div>
 
+
 <script>
   $(document).ready(function() {
     $("button").click(function(){
     $.ajax({
       type: "GET",
-      url: "http://localhost:8080/getDataFromDatabase",
+      url: "http://localhost:8090/getDataFromDatabase",
       dataType: "xml",
       success: function(xml) {
         var items = parseXml(xml);
@@ -56,6 +66,7 @@
       items.push({
         temperature: $(this).find("temperature").text(),
         humidity: $(this).find("humidity").text(),
+        date: $(this).find("createdDate").text(),
         id: $(this).find("id").text()
       });
     });
@@ -63,7 +74,7 @@
   }
 
   function doStuff(items) {
-    $("#div1").append('id:' + items.id + '</br>');
+    $("#div1").append('<li>'+ 'Date: ' + items.date + ' ' + 'Temperature:' + items.temperature + ' ' + 'Humidity: ' + items.humidity +'</li>' + '</br>');
   }});
 </script>
 </body>
