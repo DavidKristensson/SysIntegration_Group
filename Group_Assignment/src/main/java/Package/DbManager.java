@@ -1,57 +1,54 @@
 package Package;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Properties;
 
 public class DbManager {
 
     ArrayList<Reading> listOfReadings = new ArrayList<>();
 
-    public ArrayList<Reading> getListOfHistoricalReadings() throws IOException, ClassNotFoundException, SQLException {
+    public ArrayList<Reading> getReadingsFromDb() throws IOException, ClassNotFoundException{
+        Properties p = new Properties();
+        p.load(new FileInputStream("C:\\Users\\User123\\git\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties"));
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection con = DriverManager.getConnection(
+                p.getProperty("connectionString"),
+                p.getProperty("username"),
+                p.getProperty("password"));
+             PreparedStatement stmt = con.prepareStatement(
+                     "select * from Readings")){
+
+            ResultSet rs = stmt.executeQuery();
+
             listOfReadings.clear();
-            Properties p = new Properties();
-            p.load(new FileInputStream("C:\\Users\\lasse\\GitProjects\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties"));
+            while (rs.next()) {
+                int id = rs.getInt("Id");
+                double temperature = rs.getDouble("Temperature");
+                double humidity = rs.getDouble("Humidity");
+                Date createdDate = rs.getDate("Created");
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+                Reading reading = new Reading();
+                reading.setId(id);
+                reading.setTemperature(temperature);
+                reading.setHumidity(humidity);
+                reading.setCreatedDate(createdDate);
+                listOfReadings.add(reading);
 
-
-            try (Connection con = DriverManager.getConnection(
-                    p.getProperty("connectionString"),
-                    p.getProperty("username"),
-                    p.getProperty("password"));
-                 PreparedStatement stmt = con.prepareStatement(
-                         "select * from Readings")){
-
-                ResultSet rs = stmt.executeQuery();
-
-                while (rs.next()) {
-                    int readingId = rs.getInt("Id");
-                    double temperature = rs.getDouble("Temperature");
-                    double humidity = rs.getDouble("Humidity");
-                    Date created = rs.getDate("Created");
-
-                    Reading newReading = new Reading();
-                    newReading.setId(readingId);
-                    newReading.setTemperature(temperature);
-                    newReading.setHumidity(humidity);
-                    newReading.setCreated(created);
-                    listOfReadings.add(newReading);
-
-                    System.out.println("Temperature: " + temperature);
-                    System.out.println("Humidity: " + humidity);
-                    System.out.println("Created: " + created);
-                }
+                System.out.println("Id: " + id);
+                System.out.println("Temperature: " + temperature);
+                System.out.println("Humidity: " + humidity);
+                System.out.println("Created: " + createdDate);
             }
-
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return listOfReadings;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfReadings;
     }
 
     public void insertDataBase(Reading readingFromArduino) throws IOException, ClassNotFoundException {

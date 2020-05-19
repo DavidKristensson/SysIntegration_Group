@@ -7,9 +7,7 @@ import java.util.Scanner;
 
 public class DeviceReader {
 
-    public DeviceReader() {
-
-    }
+    public DeviceReader() { }
 
     public void readDataFromArduino() throws IOException, ClassNotFoundException {
         SerialPort ports[] = SerialPort.getCommPorts();

@@ -5,11 +5,10 @@ import java.util.Date;
 public class Reading {
     private double temperature;
     private double humidity;
-    private Date created;
+    private Date createdDate;
     private int id;
 
     Reading(){ }
-
 
     public double getTemperature() {
         return temperature;
@@ -27,11 +26,19 @@ public class Reading {
         this.humidity = humidity;
     }
 
-    public Date getCreated() { return created; }
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-    public void setCreated(Date created) { this.created = created; }
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 }
