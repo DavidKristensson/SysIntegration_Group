@@ -18,37 +18,22 @@
 <h2>Current temperature and humidity:</h2>
 <div class="currentvalueBOX" id="div2"></div>
 
-
 <script>
   setInterval(function() {
-    //call $.ajax here
     $(document).ready(function() {
       $.ajax({
         type: "GET",
         url: "http://localhost:8080/current",
         dataType: 'xml',
         success: function (result) {
-
-          // Fixa linebreak här tack :) vi fattade ej hur
           $("#div2").html("<small>Temperature:</small> " + result.getElementsByTagName("temperature")[0].childNodes[0].nodeValue + '</br>'+
                   "<small>Humidity:</small> " + result.getElementsByTagName("humidity")[0].childNodes[0].nodeValue + '</br>');
         }
       });
     });
-  }, 1000); //5 seconds
-
-
-  //////////////////////////////////////////////////////////////////////
-  function parseONEreadingXml(readingInput) {
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(readingInput, "text/html");
-
-    return xmlDoc;
-  }
+  }, 1000);
 </script>
 </div>
-
-
 
 </br>
 <div class="wrapper">
@@ -74,9 +59,6 @@
       }
     });
   });
-
-
-
 
   function parseXml(xml) {
     var items = [];

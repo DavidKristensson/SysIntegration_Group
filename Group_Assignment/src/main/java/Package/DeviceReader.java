@@ -1,17 +1,11 @@
 package Package;
-import Package.Reading;
-import com.fazecast.jSerialComm.SerialPort;
 
+import com.fazecast.jSerialComm.SerialPort;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DeviceReader {
-
     public DeviceReader() { }
-
 
     public void readDataFromArduino() throws IOException, ClassNotFoundException {
 
@@ -40,8 +34,6 @@ public class DeviceReader {
         Scanner data = new Scanner(port.getInputStream());
 
         DbManager dbManager = new DbManager();
-        System.out.println("Test innan loopen :)");
-
 
         long previousTimeMillis = 0;
         int interval = 5000;
@@ -63,13 +55,8 @@ public class DeviceReader {
             }
             if(currentTimeMillis - previousTimeMillis >= interval){
                 dbManager.insertDataBase(arduinoReading);
-                System.out.println("Entered reading to database!!!");
                 previousTimeMillis = currentTimeMillis;
             }
-
-            dbManager.LatestValue = arduinoReading;
-            System.out.println("Reading sent to CURRENT reading hemsida :)");
         }
-        //System.out.println("Arduinoreading hum: "+arduinoReading.getHumidity()+"\nArd reading temp: "+arduinoReading.getTemperature());
     }
 }

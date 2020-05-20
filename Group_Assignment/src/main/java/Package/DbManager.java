@@ -3,25 +3,20 @@ package Package;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Properties;
 
 public class DbManager {
-    public static Reading LatestValue = new Reading();
     public static double staticHumidity;
     public static double staticTemperature;
     ArrayList<Reading> listOfReadings = new ArrayList<>();
 
     String lassesFilePath = "C:\\Users\\lasse\\GitProjects\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
-    String davidsFilePath = "C:\\Users\\User123\\GitProjects\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
+    String davidsFilePath = "C:\\Users\\User123\\git\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
     String linnsFilePath = "C:\\Users\\linnm\\Documents\\Git\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
     public ArrayList<Reading> getReadingsFromDb() throws IOException, ClassNotFoundException{
         Properties p = new Properties();
-        p.load(new FileInputStream(linnsFilePath));
+        p.load(new FileInputStream(davidsFilePath));
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -62,15 +57,13 @@ public class DbManager {
 
     public void insertDataBase(Reading readingFromArduino) throws IOException, ClassNotFoundException {
         Properties p = new Properties();
-        p.load(new FileInputStream(linnsFilePath));
+        p.load(new FileInputStream(davidsFilePath));
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         ResultSet rs = null;
 
-
         double temperature = readingFromArduino.getTemperature();
         double humidity = readingFromArduino.getHumidity();
-
 
         try (
                 Connection con = DriverManager.getConnection(
