@@ -20,6 +20,6 @@ public class ControllerClass {
     public ArrayList<Reading> getReadingsFromDb() throws IOException, ClassNotFoundException { return dbManager.getReadingsFromDb(); }
 
 
-    @RequestMapping(value = "/current", produces = "application/json")
+    @RequestMapping("/current")
     public Reading getCurrentValue(){ return new Reading(dbManager.staticTemperature, dbManager.staticHumidity); }
 }

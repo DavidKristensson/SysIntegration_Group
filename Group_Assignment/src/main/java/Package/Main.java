@@ -11,6 +11,5 @@ public class Main {
         SpringApplication.run(Main.class, args);
         DeviceReader deviceReader = new DeviceReader();
         deviceReader.readDataFromArduino();
-        Websocket socket = new Websocket();
     }
 }

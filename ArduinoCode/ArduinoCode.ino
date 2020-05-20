@@ -26,6 +26,5 @@ void loop() {
     Serial.println(dht.readTemperature());
     Serial.print("Humidity: ");
     Serial.println(dht.readHumidity());
-    delay(1000);
   }
 }

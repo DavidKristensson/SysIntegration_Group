@@ -3,7 +3,11 @@ package Package;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Properties;
 
 public class DbManager {
@@ -17,7 +21,7 @@ public class DbManager {
     String linnsFilePath = "C:\\Users\\linnm\\Documents\\Git\\SysIntegration_Group\\Group_Assignment\\src\\main\\java\\Package\\settings.properties";
     public ArrayList<Reading> getReadingsFromDb() throws IOException, ClassNotFoundException{
         Properties p = new Properties();
-        p.load(new FileInputStream(linnsFilePath));
+        p.load(new FileInputStream(lassesFilePath));
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -58,7 +62,7 @@ public class DbManager {
 
     public void insertDataBase(Reading readingFromArduino) throws IOException, ClassNotFoundException {
         Properties p = new Properties();
-        p.load(new FileInputStream(linnsFilePath));
+        p.load(new FileInputStream(lassesFilePath));
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         ResultSet rs = null;
@@ -77,7 +81,6 @@ public class DbManager {
             stmt.setDouble(1, temperature);
             stmt.setDouble(2, humidity);
             stmt.executeUpdate();
-            System.out.println("Successfully inserted data into database! :D");
         }
         catch (SQLException e) {
             e.printStackTrace();

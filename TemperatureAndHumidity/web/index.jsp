@@ -16,21 +16,40 @@
 <div class="info"><h1>Projekt av David, Lasse och Linn</h1>
 </br>
 <h2>Nuvarande temperatur och luftfuktighet:</h2></div>
-<div class="currentvalueBOX"></div>
+<div class="currentvalueBOX" id="div2"></div>
+
 
 <script>
-  $(document).ready(function() {
-    $.ajax({
-      type: "GET",
-      url: "http://localhost:8090/current",
-      dataType: JSON,
-      success: function (result) {
-        var pj = JSON.parse(result);
-        $("#currentvalueBOX").append('temperature' + pj.temperature + pj.humidity)
-      }
+  setInterval(function() {
+    //call $.ajax here
+    $(document).ready(function() {
+      $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/current",
+        dataType: 'xml',
+        success: function (result) {
+
+          // Fixa linebreak här tack :) vi fattade ej hur
+          $("#div2").html("Temperature: " + result.getElementsByTagName("temperature")[0].childNodes[0].nodeValue+ '</br>'+
+                  "Humidity: " + result.getElementsByTagName("humidity")[0].childNodes[0].nodeValue + '</br>');
+        }
+      });
     });
-  });
+  }, 1000); //5 seconds
+
+
+  //////////////////////////////////////////////////////////////////////
+  function parseONEreadingXml(readingInput) {
+    parser = new DOMParser();
+    xmlDoc = parser.parseFromString(readingInput, "text/html");
+
+    return xmlDoc;
+  }
 </script>
+
+
+
+
 </br>
 <div class="wrapper">
 <button class="button" name="button">Visa historik</button>
@@ -44,7 +63,7 @@
     $("button").click(function(){
     $.ajax({
       type: "GET",
-      url: "http://localhost:8090/getDataFromDatabase",
+      url: "http://localhost:8080/getDataFromDatabase",
       dataType: "xml",
       success: function(xml) {
         var items = parseXml(xml);
@@ -55,6 +74,9 @@
       }
     });
   });
+
+
+
 
   function parseXml(xml) {
     var items = [];

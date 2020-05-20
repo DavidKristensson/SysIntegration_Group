@@ -3,7 +3,10 @@ import Package.Reading;
 import com.fazecast.jSerialComm.SerialPort;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DeviceReader {
 
@@ -11,6 +14,7 @@ public class DeviceReader {
 
 
     public void readDataFromArduino() throws IOException, ClassNotFoundException {
+
         SerialPort ports[] = SerialPort.getCommPorts();
         System.out.println("Select a port: ");
         int i = 1;
@@ -37,8 +41,14 @@ public class DeviceReader {
 
         DbManager dbManager = new DbManager();
         System.out.println("Test innan loopen :)");
+
+
+        long previousTimeMillis = 0;
+        int interval = 5000;
+
         while (data.hasNext()) {
             Reading arduinoReading = new Reading();
+            long currentTimeMillis = System.currentTimeMillis();
             if (data.next().contains("Humidity:")) {
                 String humidity = data.nextLine();
                 arduinoReading.setHumidity(Double.parseDouble(humidity));
@@ -51,8 +61,14 @@ public class DeviceReader {
                 dbManager.staticTemperature = (Double.parseDouble(temperature));
                 System.out.println("temperature: "+temperature);
             }
-            dbManager.insertDataBase(arduinoReading);
+            if(currentTimeMillis - previousTimeMillis >= interval){
+                dbManager.insertDataBase(arduinoReading);
+                System.out.println("Entered reading to database!!!");
+                previousTimeMillis = currentTimeMillis;
+            }
+
             dbManager.LatestValue = arduinoReading;
+            System.out.println("Reading sent to CURRENT reading hemsida :)");
         }
         //System.out.println("Arduinoreading hum: "+arduinoReading.getHumidity()+"\nArd reading temp: "+arduinoReading.getTemperature());
     }
