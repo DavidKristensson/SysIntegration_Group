@@ -18,21 +18,28 @@ h2{
     font-size: 20px;
     font-weight: bold;
 }
+small {
+    font-size: 25px;
+}
 .info {
     text-align: center;
 }
 .currentvalueBOX {
-    width: 180px;
-    height: 200px;
-    margin: 10px;
-    padding: 16px;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    padding: 5px;
     color: #000;
+    font-weight: bold;
+    font-size: 80px;
     vertical-align: top;
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     display: inline-block;
-    background-color: white;
+    background-color: darkslategray;
+    font-family: "Copperplate Gothic Bold";
+    text-shadow:2px 1px 4px #2b665e;
 }
 .wrapper {
     display: flex;
@@ -41,12 +48,12 @@ h2{
     height: auto;
 }
 .button {
-    background-color:white;
+    background-color:black;
     border-radius:28px;
-    border:1px solid darkseagreen;
+    border:1px solid white;
     display:inline-block;
     cursor:pointer;
-    color:darkseagreen;
+    color:white;
     font-family:"Arial Rounded MT Bold";
     font-weight: bold;
     text-transform: lowercase;
@@ -65,13 +72,14 @@ h2{
     top:1px;
 }
 .div {
-    width: 200px;
+    width: 400px;
     height: auto;
     margin: 10px;
     padding: 16px;
     color: #000;
     vertical-align: top;
     border-radius: 8px;
+    align-content: center;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     display: inline-block;

@@ -15,7 +15,7 @@
 <body>
 <div class="info"><h1>Projekt av David, Lasse och Linn</h1>
 </br>
-<h2>Nuvarande temperatur och luftfuktighet:</h2></div>
+<h2>Current temperature and humidity:</h2>
 <div class="currentvalueBOX" id="div2"></div>
 
 
@@ -30,8 +30,8 @@
         success: function (result) {
 
           // Fixa linebreak här tack :) vi fattade ej hur
-          $("#div2").html("Temperature: " + result.getElementsByTagName("temperature")[0].childNodes[0].nodeValue+ '</br>'+
-                  "Humidity: " + result.getElementsByTagName("humidity")[0].childNodes[0].nodeValue + '</br>');
+          $("#div2").html("<small>Temperature:</small> " + result.getElementsByTagName("temperature")[0].childNodes[0].nodeValue + '</br>'+
+                  "<small>Humidity:</small> " + result.getElementsByTagName("humidity")[0].childNodes[0].nodeValue + '</br>');
         }
       });
     });
@@ -46,17 +46,17 @@
     return xmlDoc;
   }
 </script>
-
+</div>
 
 
 
 </br>
 <div class="wrapper">
 <button class="button" name="button">Visa historik</button>
+
 </div>
 </br>
 <div class="div" id="div1"></div>
-
 
 <script>
   $(document).ready(function() {
@@ -92,7 +92,7 @@
   }
 
   function doStuff(items) {
-    $("#div1").append('<li>'+ 'Date: ' + items.date + ' ' + 'Temperature:' + items.temperature + ' ' + 'Humidity: ' + items.humidity +'</li>' + '</br>');
+    $("#div1").append('<li>'+ 'Date: ' + items.date + ' ' + '</br>Temperature:' + items.temperature + ' ' + '</br>Humidity: ' + items.humidity +'</li>' + '</br>');
   }});
 </script>
 </body>
